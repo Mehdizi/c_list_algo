@@ -15,6 +15,7 @@ typedef struct lsc_cell {
 
 typedef struct lsc {
 	lsc_cell * head;
+  lsc_cell *tail;
 }lsc;
 
 int lsc_insert_head(lsc *p, int value);
@@ -22,8 +23,9 @@ bool lsc_est_vide(lsc *p);
 lsc*lsc_vide(void);
 void lsc_print(lsc *p);
 void lsc_del_head(lsc *p);
+void lsc_del_value(lsc *p, int v);
+void lsc_dispose(lsc **pp);
 
-void get_info(char*seq, seq_i*infos);
-
+// void get_info(char*seq, seq_i*infos);
 
 #endif

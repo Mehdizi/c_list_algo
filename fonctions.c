@@ -59,6 +59,11 @@ bool lsc_est_vide(lsc *p){
 }
 
 void lsc_print(lsc *p){
+  if (p == NULL)
+  {
+    printf("la liste est NULL\n");
+    return;
+  }
   lsc_cell *c = p->head;
   while (c != NULL)
   {
@@ -68,6 +73,7 @@ void lsc_print(lsc *p){
 }
 
 void lsc_del_head(lsc *p){
+  printf("délétion en cours...\n");
   if(lsc_est_vide(p)) {
     return;
   }
@@ -78,3 +84,54 @@ void lsc_del_head(lsc *p){
   };
 }
 
+// Il faut faire un pointeur vers la cellule actuelle et un pointeur vers le suivante.
+// Comme ca si la suivante c'est la cellule à enlever on a toujours le pointeur d'avant pour repointer vers celui d'après.
+void lsc_del_value(lsc *p, int v)
+{
+  if (lsc_est_vide(p))
+  {
+    return;
+  }
+  else if (p->head->value == v)
+  {
+    lsc_del_head(p);
+  }
+  else
+  {
+    lsc_cell *cv = p->head;
+    lsc_cell *pv = p->head;
+
+    while (cv->value != v)
+    {
+      if (cv == NULL)
+      {
+        return;
+      }
+      pv = cv;
+      cv = cv->next;
+    }
+    pv->next = cv->next;
+    free(cv);
+  };
+}
+
+void lsc_dispose(lsc **pp)
+{
+  if (*pp == NULL)
+  {
+    return;
+  }
+  lsc_cell *cv = (*pp)->head;
+  while (cv != NULL)
+  {
+    lsc_cell *nv = cv->next;
+    free(cv);
+    cv = nv;
+  }
+  free(*pp);
+  *pp = NULL;
+}
+
+// faire void lsc_dispose(lsc**p)
+//  lsc_dispose(&p)
+// Il veut que cette fonction donne un p qui est à NULL
