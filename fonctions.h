@@ -25,6 +25,7 @@ void lsc_print(lsc *p);
 void lsc_del_head(lsc *p);
 void lsc_del_value(lsc *p, int v);
 void lsc_dispose(lsc **pp);
+void lsc_del_all_value(lsc *p, int v);
 
 // void get_info(char*seq, seq_i*infos);
 

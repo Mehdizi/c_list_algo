@@ -61,7 +61,6 @@ bool lsc_est_vide(lsc *p){
 void lsc_print(lsc *p){
   if (p == NULL)
   {
-    printf("la liste est NULL\n");
     return;
   }
   lsc_cell *c = p->head;
@@ -132,6 +131,38 @@ void lsc_dispose(lsc **pp)
   *pp = NULL;
 }
 
-// faire void lsc_dispose(lsc**p)
-//  lsc_dispose(&p)
-// Il veut que cette fonction donne un p qui est à NULL
+void lsc_del_all_value(lsc *p, int v)
+{
+  if (p == NULL || lsc_est_vide(p))
+  {
+    return;
+  }
+  else
+  {
+    lsc_cell *cv = p->head;
+    while (p->head->value == v && cv != NULL)
+    {
+      lsc_del_head(p);
+      cv = p->head;
+    }
+    lsc_cell *pv = cv;
+    if (cv != NULL)
+    {
+      cv = cv->next;
+    }
+    while (cv != NULL)
+    {
+      if (cv->value == v)
+      {
+        pv->next = cv->next;
+        free(cv);
+        cv = pv->next;
+      }
+      else
+      {
+        pv = cv;
+        cv = cv->next;
+      }
+    }
+  };
+}

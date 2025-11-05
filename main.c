@@ -18,18 +18,30 @@ int main(void) {
   // return EXIT_SUCCESS;
 
   lsc *p = lsc_vide();
-  lsc_insert_head(p, 1);
+  lsc_insert_head(p, 2);
   lsc_insert_head(p, 2);
   lsc_insert_head(p, 3);
   lsc_insert_head(p, 4);
   printf("____________\n");
+  // lsc_print(p);
+  // printf("____________\n");
+  // lsc_del_value(p, 4);
+  // printf("____________\n");
+  // lsc_print(p);
+  // printf("____________\n");
+  // lsc_dispose(&p);
+  // printf("____________\n");
   lsc_print(p);
   printf("____________\n");
-  lsc_del_value(p, 4);
+  lsc_insert_head(p, 2);
+  lsc_insert_head(p, 2);
+  lsc_insert_head(p, 2);
+  lsc_insert_head(p, 2);
+  lsc_insert_head(p, 1);
   printf("____________\n");
   lsc_print(p);
   printf("____________\n");
-  lsc_dispose(&p);
+  lsc_del_all_value(p, 2);
   printf("____________\n");
   lsc_print(p);
 }
