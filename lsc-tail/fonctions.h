@@ -26,6 +26,9 @@ void lsc_del_head(lsc *p);
 void lsc_del_value(lsc *p, int v);
 void lsc_dispose(lsc **pp);
 void lsc_del_all_value(lsc *p, int v);
+void lsc_insert_sorted(lsc *p, int v);
+void lsc_move_head(lsc *src, lsc *dest);
+void lsc_move_all_head(lsc *src, lsc *dest);
 
 // void get_info(char*seq, seq_i*infos);
 

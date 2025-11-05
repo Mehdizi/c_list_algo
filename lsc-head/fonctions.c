@@ -166,3 +166,44 @@ void lsc_del_all_value(lsc *p, int v)
     }
   };
 }
+
+void lsc_insert_sorted(lsc *p, int v)
+{
+  // VERIFIER SI LA LISTE EST VIDE SI OUI ? AJOUTER LA VALEUR AVEC lsc_insert_head
+  if (p == NULL || lsc_est_vide(p) || p->head->value >= v)
+  {
+    lsc_insert_head(p, v);
+    return;
+  }
+  // CREATION DE LA NOUVELLE CELLULE ET ATTRIBUTION DE LA VALEUR V
+  lsc_cell *newv = malloc(sizeof *newv);
+  if (newv == NULL)
+  {
+    return;
+  }
+  newv->value = v;
+  lsc_cell *cv = p->head;
+  while (cv->next != NULL && cv->next->value < v)
+  {
+    cv = cv->next;
+  }
+  newv->next = cv->next;
+  cv->next = newv;
+}
+
+void lsc_move_head(lsc *src, lsc *dest)
+{
+  lsc_cell *mv = src->head;
+  src->head = mv->next;
+  lsc_cell *destp = dest->head;
+  dest->head = mv;
+  mv->next = destp;
+}
+
+void lsc_move_all_head(lsc *src, lsc *dest)
+{
+  while (src->head != NULL)
+  {
+    lsc_move_head(src, dest);
+  }
+}
