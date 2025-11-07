@@ -11,3 +11,5 @@ fonctions:
 
 main:
 	$(CC) -c main.c
+
+

@@ -4,15 +4,40 @@
 #include "fonctions.h"
 
 int lsc_insert_head(lsc *p, int value) {
-	lsc_cell * cell = malloc(sizeof * cell);
-	if(cell == NULL){
-  printf("Erreur malloc ! \n");
-  return -1;
+  lsc_cell *cell = malloc(sizeof *cell);
+  if (cell == NULL)
+  {
+    printf("Erreur malloc ! \n");
+    return -1;
+  }
+  if (p->head == NULL)
+  {
+    p->tail = cell;
+  }
+  cell->value = value;
+  cell->next = p->head;
+  p->head = cell;
+  return 0;
 }
-cell -> value = value;
-cell -> next = p -> head;
-p -> head = cell;
-return 0;
+
+int lsc_insert_tail(lsc *p, int value)
+{
+  if (p->tail == NULL)
+  {
+    lsc_insert_head(p, value);
+    return -1;
+  }
+  lsc_cell *cell = malloc(sizeof *cell);
+  if (cell == NULL)
+  {
+    printf("Erreur malloc ! \n");
+    return -1;
+  }
+  cell->value = value;
+  p->tail->next = cell;
+  cell->next = NULL;
+  p->tail = cell;
+  return 0;
 }
 
 lsc*lsc_vide(void) {
@@ -80,6 +105,10 @@ void lsc_del_value(lsc *p, int v)
       pv = cv;
       cv = cv->next;
     }
+    if (p->tail->value == v)
+    {
+      p->tail = pv;
+    }
     pv->next = cv->next;
     free(cv);
   };
@@ -146,12 +175,19 @@ void lsc_insert_sorted(lsc *p, int v)
     lsc_insert_head(p, v);
     return;
   }
+  if (p->tail->value < v)
+  {
+    lsc_insert_tail(p, v);
+    return;
+  }
+
   // CREATION DE LA NOUVELLE CELLULE ET ATTRIBUTION DE LA VALEUR V
   lsc_cell *newv = malloc(sizeof *newv);
   if (newv == NULL)
   {
     return;
   }
+
   newv->value = v;
   lsc_cell *cv = p->head;
   while (cv->next != NULL && cv->next->value < v)
@@ -166,9 +202,8 @@ void lsc_move_head(lsc *src, lsc *dest)
 {
   lsc_cell *mv = src->head;
   src->head = mv->next;
-  lsc_cell *destp = dest->head;
+  mv->next = dest->head;
   dest->head = mv;
-  mv->next = destp;
 }
 
 void lsc_move_all_head(lsc *src, lsc *dest)

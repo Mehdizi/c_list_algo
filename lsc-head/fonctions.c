@@ -193,11 +193,13 @@ void lsc_insert_sorted(lsc *p, int v)
 
 void lsc_move_head(lsc *src, lsc *dest)
 {
-  lsc_cell *mv = src->head;
-  src->head = mv->next;
-  lsc_cell *destp = dest->head;
-  dest->head = mv;
-  mv->next = destp;
+  if (src->head != NULL)
+  {
+    lsc_cell *mv = src->head;
+    src->head = mv->next;
+    mv->next = dest->head;
+    dest->head = mv;
+  }
 }
 
 void lsc_move_all_head(lsc *src, lsc *dest)
