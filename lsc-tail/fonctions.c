@@ -72,6 +72,10 @@ void lsc_del_head(lsc *p){
   if(lsc_est_vide(p)) {
     return;
   }
+  if (p->head->next == NULL)
+  {
+    p->tail = NULL;
+  }
   else {
     lsc_cell *cellToFree = p->head;
     p->head = p->head->next;
@@ -200,6 +204,10 @@ void lsc_insert_sorted(lsc *p, int v)
 
 void lsc_move_head(lsc *src, lsc *dest)
 {
+  if (src->head == src->tail)
+  {
+    dest->tail = NULL;
+  }
   lsc_cell *mv = src->head;
   src->head = mv->next;
   mv->next = dest->head;
@@ -208,8 +216,5 @@ void lsc_move_head(lsc *src, lsc *dest)
 
 void lsc_move_all_head(lsc *src, lsc *dest)
 {
-  while (src->head != NULL)
-  {
-    lsc_move_head(src, dest);
-  }
+  src
 }

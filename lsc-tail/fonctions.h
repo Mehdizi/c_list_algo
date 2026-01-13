@@ -20,13 +20,19 @@ typedef struct lsc {
 
 /* lsc_insert_head : Prend une lsc et une valeur en paramètre.
   Créer une nouvelle cellule, lui attribu la valeur donnée et l'ajoute en début de chaîne.
+  return -1 si erreur allocation mémoire lors de la création de la cellule
+  return 0 si l'opération est réussie
  */
 int lsc_insert_head(lsc *p, int value);
 /* lsc_insert_tail : Prend une lsc et une valeur en paramètre.
   Créer une nouvelle cellule, lui attribu la valeur donnée et l'ajoute en fin de chaîne.
+  return -1 si erreur allocation mémoire lors de la création de la cellule
+  return 0 si l'opération est réussie
  */
 int lsc_insert_tail(lsc *p, int value);
-/* lsc_est_vide : Prend une lsc en paramètre et renvoi TRUE si la liste est vide */
+/* lsc_est_vide : Prend une lsc en paramètre
+return TRUE si la liste est vide
+*/
 bool lsc_est_vide(lsc *p);
 /* Initialise une lsc vide*/
 lsc*lsc_vide(void);
@@ -63,7 +69,5 @@ void lsc_move_head(lsc *src, lsc *dest);
   en transférant les cellules dans l'ordre de tête vers queue de la "dest"
  */
 void lsc_move_all_head(lsc *src, lsc *dest);
-
-// void get_info(char*seq, seq_i*infos);
 
 #endif
